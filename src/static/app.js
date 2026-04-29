@@ -868,6 +868,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
     darkModeToggle.textContent = isDark ? "☀️" : "🌙";
     darkModeToggle.title = isDark ? "Switch to light mode" : "Switch to dark mode";
+    darkModeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
   }
 
   const savedTheme = localStorage.getItem("theme");
@@ -875,9 +876,9 @@ document.addEventListener("DOMContentLoaded", () => {
   applyTheme(savedTheme === "dark" || (!savedTheme && prefersDark));
 
   darkModeToggle.addEventListener("click", () => {
-    const isDark = document.documentElement.getAttribute("data-theme") !== "dark";
-    applyTheme(isDark);
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    const currentlyDark = document.documentElement.getAttribute("data-theme") === "dark";
+    applyTheme(!currentlyDark);
+    localStorage.setItem("theme", !currentlyDark ? "dark" : "light");
   });
 
   // Initialize app
